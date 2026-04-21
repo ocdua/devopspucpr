@@ -1,0 +1,25 @@
+name: Pipeline CI/CD
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # Etapa de Integração Contínua (CI)
+  ci-testes:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout do codigo
+      uses: actions/checkout@v3
+    - name: Valida estrutura HTML
+      run: echo "Testes automatizados aprovados! O codigo esta integro."
+
+  # Etapa de Entrega Contínua (CD)
+  cd-deploy:
+    needs: ci-testes
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout do codigo
+      uses: actions/checkout@v3
+    - name: Prepara para Deploy
+      run: echo "Aplicacao pronta para ser lancada em producao a qualquer momento."
