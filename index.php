@@ -144,13 +144,13 @@ $progress = $total > 0 ? round(($completed / $total) * 100) : 0;
                     </div>
                     
                     <div class="task-actions">
-                        <button class="btn-icon <?= $task['completed'] ? 'text-muted' : 'text-success' ?>" onclick="toggleStatus('<?= htmlspecialchars($task['id']) ?>')" title="<?= $task['completed'] ? 'Desfazer' : 'Concluir' ?>">
+                        <button class="btn-icon <?= $task['completed'] ? 'text-muted' : 'text-success' ?>" onclick="toggleStatus('<?= $task['id'] ?>')" title="<?= $task['completed'] ? 'Desfazer' : 'Concluir' ?>">
                             <i class="fas <?= $task['completed'] ? 'fa-undo' : 'fa-check' ?>"></i>
                         </button>
                         
-                        <button class="btn-icon" onclick="toggleHighlight('<?= htmlspecialchars($task['id']) ?>')" title="Destacar"><i class="<?= ($task['highlighted'] ? 'fas' : 'far') ?> fa-star"></i></button>
-                        <button class="btn-icon" onclick="editTask('<?= htmlspecialchars($task['id']) ?>')" title="Editar"><i class="fas fa-pen"></i></button>
-                        <button class="btn-icon text-danger" onclick="deleteTask('<?= htmlspecialchars($task['id']) ?>')" title="Apagar"><i class="fas fa-trash"></i></button>
+                        <button class="btn-icon" onclick="toggleHighlight('<?= $task['id'] ?>')" title="Destacar"><i class="<?= $task['highlighted'] ? 'fas' : 'far' ?> fa-star"></i></button>
+                        <button class="btn-icon" onclick="editTask('<?= $task['id'] ?>')" title="Editar"><i class="fas fa-pen"></i></button>
+                        <button class="btn-icon text-danger" onclick="deleteTask('<?= $task['id'] ?>')" title="Apagar"><i class="fas fa-trash"></i></button>
                     </div>
                 </li>
             <?php endforeach; ?>
