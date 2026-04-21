@@ -1,25 +1,45 @@
-name: Pipeline CI/CD
+name: Pipeline CI/CD Pro
 
 on:
+  push:
+    branches: [ "main", "feature/*" ]
   pull_request:
     branches: [ "main" ]
 
 jobs:
   # Etapa de Integração Contínua (CI)
-  ci-testes:
+  continuous-integration:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout do codigo
+    - name: Checkout do código
       uses: actions/checkout@v3
-    - name: Valida estrutura HTML
-      run: echo "Testes automatizados aprovados! O codigo esta integro."
+
+    - name: Configurar PHP 8.2
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, json
+
+    - name: Validar Sintaxe do index.php (Lint)
+      run: php -l index.php
+
+    - name: Verificar integridade dos arquivos
+      run: |
+        ls -la
+        test -f index.php && echo "index.php existe"
+        test -f style.css && echo "style.css existe"
+        test -f Dockerfile && echo "Dockerfile existe"
 
   # Etapa de Entrega Contínua (CD)
-  cd-deploy:
-    needs: ci-testes
+  continuous-delivery:
+    needs: continuous-integration
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     steps:
-    - name: Checkout do codigo
+    - name: Checkout do código
       uses: actions/checkout@v3
-    - name: Prepara para Deploy
-      run: echo "Aplicacao pronta para ser lancada em producao a qualquer momento."
+
+    - name: Simular Empacotamento para Produção
+      run: |
+        echo "Gerando pacote de deploy com as novas funcionalidades..."
+        echo "Deploy pronto para ambiente de staging (homologação)." [cite: 414, 417]
